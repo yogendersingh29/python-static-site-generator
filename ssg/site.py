@@ -1,18 +1,18 @@
 from pathlib import Path
 
-class site:
+class Site:
 
     def __init__(self, source, dest):
         self.source = Path(source)
         self.dest = Path(dest)
 
     def create_dir(self, path):
-        self.directory = Path(self.dest).relative_to(self.source)
-        Path(self.directory).mkdir(parents=True, exist_ok=True)
+        self.directory = self.dest / path.relative_to(self.source)
+        self.directory.mkdir(parents=True, exist_ok=True)
 
     def build(self):
-        Path(self.dest).mkdir(parents=True, exist_ok=True)
-        pathlist = Path(self.source).glob('**/*.asm')
+        self.dest.mkdir(parents=True, exist_ok=True)
+        pathlist = self.source.glob('**/*.asm')
         for path in pathlist:
-            if Path.is_dir(path):
-                site.create_dir(self, path)
+            if path.is_dir():
+                self.create_dir(path)
