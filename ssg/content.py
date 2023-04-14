@@ -1,5 +1,6 @@
 import re
-from yaml import load, FullLoader
+from yaml import load
+from yaml import FullLoader
 
 class Content(Mapping):
 
